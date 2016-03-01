@@ -1,0 +1,45 @@
+{# Aqui temos o arquivo html base, o qual todas as outras páginas irão
+herdar. #}
+<html>
+    <head>
+        {# Aqui temos uma estrutura de decisão, na qual checamos se a
+        variável título tem valor. #}
+        {% if title %}
+            {# Se a condição for verdadeira, exibimos o valor da variável. #}
+            <title>{{ title }} - microblog</title>
+        {% else %}
+            {# Se for falsa, exibimos o título padrão. #}
+            <title>Welcome to microblog</title>
+        {% endif %}
+    </head>
+
+    <body>
+        {# Temos aqui a exibição de uma barra com os principais links. #}
+        <h1>Microblog: <a href="/index">Home</a></h1>
+        <hr />
+        {# Aqui temos um espaço para a exibição de mensagens ao usuário
+        (quando existirem). #}
+        {# Temos uma variável de escopo (dentro da estrutura 'with') que
+        recebe mensagens do sistema. #}
+        {% with messages = get_flashed_messages() %}
+            {# Estrutura de decisão (if) que verifica se há uma ou mais
+            mensagens. #}
+            {% if messages %}
+                <ul>
+                    {# Estrutura de controle (for) que faz um loop por todas as
+                    mensagens. #}
+                    {% for message in messages %}
+                        <li>
+                            {# Exibe a mensagem. #}
+                            {{ message }}
+                        </li>
+                    {# Fim do for. #}
+                    {% endfor %}
+                </ul>
+            {# Fim do if. #}
+            {% endif %}
+        {% endwith %}
+        {# Aqui é feita a exibição do conteúdo específico de cada página. #}
+        {% block content %}{% endblock %}
+    </body>
+</html>

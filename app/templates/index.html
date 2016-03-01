@@ -1,0 +1,20 @@
+{# Fazemos a importação do arquivo html (ou view) base do sistema. #}
+{% extends "base.html" %}
+
+{# Aqui temos a definição do conteúdo da página. #}
+{% block content %}
+    {# Temos uma saudação ao usuário, com a exibição de seu nome. #}
+    <h1>Hi, {{ user.nickname }}!</h1>
+    {# Temos uma estrutura de controle, que nesse caso fará a exibição
+    dos posts. #}
+    {% for post in posts %}
+        <div>
+            <p>
+                {# Exibimos o nome do autor seguido do conteúdo do post. #}
+                {{ post.author.nickname }} says: <b>{{ post.body }}</b>
+            </p>
+        </div>
+    {# Encerramos a estrutura de controle. #}
+    {% endfor %}
+{# Encerramos o bloco de conteúdo. #}
+{% endblock %}

@@ -9,15 +9,15 @@
     <script type="text/javascript">
         function set_openid(openid, pr)
         {
-            u = openid.search('<username>')
+            u = openid.search('<username>');
             if (u != -1)
             {
                 // OpenId precisa de um 'username'
-                user = prompt('Enter your ' + pr + ' username':)
-                openid = openid.substr(0, u) + user
+                user = prompt('Enter your ' + pr + ' username':);
+                openid = openid.substr(0, u) + user;
             }
             form = document.forms['login'];
-            form.elements['openid'].value = openid
+            form.elements['openid'].value = openid;
         }
     </script>
     <h1>Sign In</h1>
@@ -29,13 +29,13 @@
         <p>
             {# O campo recebe o valor referente ao OpenId do usuário. #}
             Please, enter your OpenId, or select one of the providers below:<br />
-            {{ form.openid(size=80) }}<br />
+            {{ form.openid(size=80) }}
             {# Exibe erro, caso exista. #}
             {% for error in form.openid.errors %}
                 <span style="color: red;">
                     [{{ error }}]
                 </span>
-            {% endfor %}
+            {% endfor %}<br />
             {# Estrutura de controle que exibe todos os provedores de OpenId
             definidos no arquivo de configuração. #}
             {% for pr in providers %}

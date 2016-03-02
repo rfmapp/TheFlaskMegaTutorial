@@ -2,6 +2,8 @@
 
 # Importamos o objeto db do módulo que criamos.
 from app import db
+# Importamos a função 'md5'.
+from hashlib import md5
 
 # Criamos a classe que representa a tabela de usuários.
 class User(db.Model):
@@ -19,14 +21,40 @@ class User(db.Model):
     # referencial local do campo da tabela a que se refere, no caso 'user_id'
     # e por fim 'lazy', que ....
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    # Campo 'about_me', do tipo string, com limite de 140 caracteres.
+    about_me = db.Column(db.String(140))
+    # Campo 'last_seen', do tipo 'DateTime'.
+    last_seen = db.Column(db.DateTime)
 
+    # Em geral, esse método deve apenas retornar verdadeiro a menos que o objeto
+    # represente um usuário que não tenha permissão para autenticar.
     @property
     def is_authenticated(self):
         return True
 
+    # Deve retornar verdadeiro a menos que o usuário não esteja ativo. Por
+    # exemplo, se ele tiver sido banido.
+    @property
+    def is_active(self):
+        return True
+
+    # Deve retornar verdadeiro para usuários falsos, que não devem logar no
+    # sistema.
+    @property
+    def is_anonymous(self):
+        return False
+
+    # Retorna o id do usuário em formato unicode.
+    def get_id(self):
+        return unicode(self.id)
+
     # Método que indica como exibir objetos dessa classe. Será usado para debug.
     def __repr__(self):
         return '<User %r>' % (self.nickname)
+
+    # Método que importa o avatar do serviço 'Gravatar'.
+    def avatar(self, size):
+        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (md5(self.email.encode('utf-8')).hexdigest(), size)
 
 # Criamos a classe que representa a tabela de posts dos usuários.
 class Post(db.Model):

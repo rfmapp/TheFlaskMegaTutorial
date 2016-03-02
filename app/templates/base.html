@@ -15,7 +15,15 @@ herdar. #}
 
     <body>
         {# Temos aqui a exibição de uma barra com os principais links. #}
-        <h1>Microblog: <a href="/index">Home</a></h1>
+        <div>
+            {# Link para a página principal. #}
+            Microblog: <a href="{{ url_for('index') }}">Home</a>
+            {# Verifica se há usuário autenticado. #}
+            {% if g.user.is_authenticated %}
+                | <a href="{{ url_for('user', nickname=g.user.nickname) }}">Your Profile</a> |
+                | <a href="{{ url_for('logout') }}">Logout</a> |
+            {% endif %}
+        </div>
         <hr />
         {# Aqui temos um espaço para a exibição de mensagens ao usuário
         (quando existirem). #}

@@ -19,6 +19,7 @@ SECRET_KEY = "diga-amigo-e-entre"
 
 # Definimos a lista de provedores de 'OpenIds' que teremos em nosso sistema.
 OPENID_PROVIDERS = [
+    {'name': 'StackExchange', 'url': 'https://openid.stackexchange.com'},
     {'name': 'Yahoo', 'url': 'https://me.yahoo.com'},
     {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
     {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},

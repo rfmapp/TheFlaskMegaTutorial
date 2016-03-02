@@ -9,7 +9,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 # Aqui importamos a classe 'LoginManager'.
 from flask.ext.login import LoginManager
 # Aqui importamos a classe 'OpenId'.
-from flask.ext.openid import OpenId
+from flask.ext.openid import OpenID
 # Aqui importamos o objeto 'basedir' do nosso arquivo de configuração.
 from config import basedir
 
@@ -23,9 +23,11 @@ db = SQLAlchemy(app)
 lm = LoginManager()
 # Aqui indicamos nossa aplicação para o objeto.
 lm.init_app(app)
+# Definimos a view de login.
+lm.login_view = 'login'
 # A extensão 'OpenId' requer que seja indicado um caminho para um diretório
 # temporário onde arquivos possam ser armazenados.
-oid = OpenId(app, os.path.join(basedir, 'tmp'))
+oid = OpenID(app, os.path.join(basedir, 'tmp'))
 
 # Aqui importamos os módulos 'views' e 'models' do pacote 'app'. Esse import
 # está localizado no final do arquivo e não no início como de costume porque
